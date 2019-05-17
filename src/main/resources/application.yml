@@ -1,0 +1,15 @@
+spring:
+  profiles: local
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  h2:
+    console:
+      enabled: true
+
+  logging:
+    level:
+      org.hibernate.type: trace # JPA로 생성되는 쿼리의 파라미터 값 확인

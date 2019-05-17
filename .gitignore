@@ -1,3 +1,5 @@
+## google oauth
+src/main/resources/google.yml
 
 # Created by https://www.gitignore.io/api/java,macos,maven,windows,eclipse,intellij
 # Edit at https://www.gitignore.io/?templates=java,macos,maven,windows,eclipse,intellij
