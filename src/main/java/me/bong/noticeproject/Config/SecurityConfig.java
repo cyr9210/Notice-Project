@@ -20,11 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/h2-console/**", "/login**", "/favicon.ico", "/login/google").permitAll()
+                .antMatchers("/", "/h2-console/**", "/login**", "/favicon.ico", "/login/google", "/js/**", "/css/**", "/vendor/**").permitAll()
                 .anyRequest().authenticated()
-                .and().logout().logoutSuccessUrl("/login").permitAll()
-                .and().headers().frameOptions().sameOrigin()
-                .and().csrf().disable()
+                .and()
+                    .logout()
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true)
+                .and()
+                    .headers().frameOptions().sameOrigin()
+                .and()
+                    .csrf().disable()
                 .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
     }
 }

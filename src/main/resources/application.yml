@@ -13,3 +13,7 @@ spring:
   logging:
     level:
       org.hibernate.type: trace # JPA로 생성되는 쿼리의 파라미터 값 확인
+
+  datasource:
+    data: classpath:schema-h2.sql
+

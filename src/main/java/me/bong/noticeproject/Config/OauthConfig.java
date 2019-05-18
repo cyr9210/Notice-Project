@@ -24,13 +24,15 @@ public class OauthConfig {
 
     private final OAuth2ClientContext oAuth2ClientContext;
 
+    private final GoogleAuthenticationSuccessHandler google;
+
     @Bean
     public Filter ssoFilter(){
         OAuth2ClientAuthenticationProcessingFilter oauth2Filter = new OAuth2ClientAuthenticationProcessingFilter("/login/google");
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(googleClient(), oAuth2ClientContext);
         oauth2Filter.setRestTemplate(oAuth2RestTemplate);
         oauth2Filter.setTokenServices(new UserInfoTokenServices(googleResource().getUserInfoUri(), googleClient().getClientId()));
-
+        oauth2Filter.setAuthenticationSuccessHandler(google);
         return oauth2Filter;
     }
 
