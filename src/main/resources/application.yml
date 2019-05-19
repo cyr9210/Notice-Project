@@ -16,6 +16,11 @@ spring:
   datasource:
     data: classpath:schema-h2.sql
 
+  devtools:
+    remote:
+      restart:
+        enabled: false
+
 logging:
   level:
     org:

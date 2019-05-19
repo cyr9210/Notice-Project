@@ -18,4 +18,9 @@ public class ViewController {
 
     }
 
+    @GetMapping("/write")
+    public void write(){
+        
+    }
+
 }

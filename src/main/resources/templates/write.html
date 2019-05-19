@@ -9,17 +9,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Main</title>
+    <title>글쓰기</title>
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet"/>
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+
+    <!--MyStyle-->
+    <link href="css/mywrite.css" rel="stylesheet"/>
 
 </head>
 
@@ -36,8 +39,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-
 
                 <!-- Topbar Search -->
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -132,23 +133,23 @@
 
                     <!-- Nav Item - User Information -->
                     <th:block th:if="${session.LOGIN_USER != null}">
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${session.LOGIN_USER.getName()} + '님 환영합니다.'" >로그인상태</span>
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${session.LOGIN_USER.getName()} + '님 환영합니다.'" >로그인상태</span>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
                     </th:block>
                     <th:block th:if="${session.LOGIN_USER == null}">
                         <a class="nav-link " href="/login">
@@ -164,42 +165,35 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-<!--                &lt;!&ndash; Page Heading &ndash;&gt;-->
-<!--                <h1 class="h3 mb-2 text-gray-800">공지사항</h1>-->
-<!--                <p class="mb-4">여러가지 내용에 대하여 공지합니다..</a>.</p>-->
+                <!--                &lt;!&ndash; Page Heading &ndash;&gt;-->
+                <!--                <h1 class="h3 mb-2 text-gray-800">공지사항</h1>-->
+                <!--                <p class="mb-4">여러가지 내용에 대하여 공지합니다..</a>.</p>-->
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">글쓰기</h6>
                     </div>
                     <div class="card-body">
-                        <a href="/write" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right">글쓰기</a>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th style="width: 10%;">No.</th>
-                                    <th style="width: 45%;">글제목</th>
-                                    <th style="width: 10%;">글쓴이</th>
-                                    <th style="width: 15%;">생성일</th>
-                                    <th style="width: 10%;">추천수</th>
-                                    <th style="width: 10%;">조회수</th>
-                                </tr>
-                                </thead>
+<!--                        <a href="/write" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right">글쓰기</a>-->
+                        <form action="/write" method="post" id="postform">
+                            <div class="form-group">
+                                <label class="control-label">제목   </label>
+                                <input class="form-control" type="text" style="width: 40%; margin-left: 3px;" id="title">
+                            </div>
 
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Customer Support</td>
-                                    <td>New York</td>
-                                    <td>2011/01/25</td>
-                                    <td>27</td>
-                                    <td>$112,000</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label">글쓴이</label>
+                                <input class="form-control" type="text" style="width: 20%; margin-left: 3px;" readonly th:value="${session.LOGIN_USER.getName()}">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">내용</label>
+                                <textarea class="add_input" placeholder="본문을 입력하세요." id="mycontent"></textarea>
+                            </div>
+
+                            <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right" id="submitpost">등록</a>
+                        </form>
                     </div>
                 </div>
 
@@ -265,6 +259,9 @@
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
+<!--myscript-->
+<script src="/js/write.js"></script>
 
 </body>
 
