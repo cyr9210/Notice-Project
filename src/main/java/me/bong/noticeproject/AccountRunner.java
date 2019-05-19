@@ -17,7 +17,7 @@ public class AccountRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         Account account = new Account();
         account.setName("bong");
-        account.setEmail("cyr9210@gmail.com");
+        account.setEmail("cyr9210@nate.com");
         account.setPassword("1234");
 
         accountService.save(account);

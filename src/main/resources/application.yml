@@ -5,15 +5,22 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
 
   h2:
     console:
       enabled: true
 
-  logging:
-    level:
-      org.hibernate.type: trace # JPA로 생성되는 쿼리의 파라미터 값 확인
-
   datasource:
     data: classpath:schema-h2.sql
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
 
