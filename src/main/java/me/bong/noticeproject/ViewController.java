@@ -1,9 +1,7 @@
 package me.bong.noticeproject;
 
-import me.bong.noticeproject.Account.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ViewController {
@@ -18,9 +16,14 @@ public class ViewController {
 
     }
 
-    @GetMapping("/write")
-    public void write(){
-        
+    @GetMapping("/post/write")
+    public String write(){
+        return "write";
+    }
+
+    @GetMapping("/post/read")
+    public String read(){
+        return "read";
     }
 
 }
