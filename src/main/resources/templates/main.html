@@ -9,20 +9,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>글보기</title>
+    <title>Main</title>
 
     <!-- Custom fonts for this template -->
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/sb-admin-2.min.css" rel="stylesheet"/>
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
-
-    <!--MyStyle-->
-    <link href="/css/mywrite.css" rel="stylesheet"/>
+    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -39,6 +36,8 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+
 
                 <!-- Topbar Search -->
                 <div th:include="search::searchForm">
@@ -164,38 +163,34 @@
                         <a href="/"><h6 class="m-0 font-weight-bold text-primary">공지사항</h6></a>
                     </div>
                     <div class="card-body">
-                        <!--                        <a href="/write" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right">글쓰기</a>-->
-                        <form>
-                            <div class="form-group">
-                                <label class="control-label">제목   </label>
-                                <input class="form-control" type="text" style="width: 40%; margin-left: 3px;" id="title" value="oo" readonly="readonly" th:value="${notice.getTitle()}">
-                            </div>
+                        <a href="/notice/write" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right">글쓰기</a>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10%;">No.</th>
+                                    <th style="width: 45%;">글제목</th>
+                                    <th style="width: 15%;">글쓴이</th>
+                                    <th style="width: 15%;">생성일</th>
+                                    <th style="width: 15%;">수정일</th>
+                                    <!--                                    <th style="width: 10%;">추천수</th>-->
+                                    <!--                                    <th style="width: 10%;">조회수</th>-->
+                                </tr>
+                                </thead>
 
-                            <div class="form-group">
-                                <label class="control-label">글쓴이</label>
-                                <input class="form-control" type="text" style="width: 20%; margin-left: 3px;" readonly th:value="${notice.getWriter().getName()}">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">생성일</label>
-                                <input class="form-control" type="text" style="width: 20%; margin-left: 3px;" readonly th:value="${notice.getCreated()}">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">수정일</label>
-                                <input class="form-control" type="text" style="width: 20%; margin-left: 3px;" readonly th:value="${notice.getModified()}">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">내용</label>
-                                <textarea class="add_input" placeholder="본문을 입력하세요." id="mycontent" readonly th:text="${notice.getContent()}">본문..</textarea>
-                            </div>
-                            <th:block th:if="${notice.getWriter().getEmail() == session.LOGIN_USER.getEmail()}">
-                                <a th:href="@{'/notice/update/' + ${notice.getId()}}" class="d-none d-sm-inline-block btn btn-warning shadow-sm fa-pull-right" style="margin-left: 5px;">수정</a>
-                                <a th:href="@{'/notice/delete/' + ${notice.getId()}}" class="d-none d-sm-inline-block btn btn-danger shadow-sm fa-pull-right" style="margin-left: 5px;">삭제</a>
-                            </th:block>
-                            <a href="/notice/0" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right" style="margin-left: 5px;">목록</a>
-                        </form>
+                                <tbody>
+                                <tr th:each="notice, index : ${list}">
+                                    <td th:text="${size - index.index}">1</td>
+                                    <td><a th:text="${notice.getTitle()}" th:href="@{'/notice/read/' + ${notice.getId()}}">New York</a></td>
+                                    <td th:text="${notice.getWriter().getName()}">Customer Support</td>
+                                    <td th:text="${notice.getCreated()}">2011/01/25</td>
+                                    <td th:text="${notice.getModified()}">2011/01/25</td>
+                                    <!--                                    <td th:text="">27</td>-->
+                                    <!--                                    <td th:text="">$112,000</td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -260,10 +255,7 @@
 <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../../js/demo/datatables-demo.js"></script>
-<!--<script src="stㄴatic/js/demo/datatables-demo.js"></script>-->
-
-<!--myscript-->
+<script src="/js/demo/datatables-demo.js"></script>
 
 </body>
 

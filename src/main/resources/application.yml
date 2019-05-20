@@ -20,6 +20,11 @@ spring:
     remote:
       restart:
         enabled: false
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
 
 logging:
   level:
@@ -28,4 +33,14 @@ logging:
         type:
           descriptor:
             sql: trace
+
+
+
+
+
+
+
+
+
+
 

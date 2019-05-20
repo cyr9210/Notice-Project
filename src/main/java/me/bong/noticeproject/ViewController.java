@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
+    @GetMapping("/")
+    public String main(){
+        return "redirect:/notice/0";
+    }
+
     @GetMapping("/login")
     public void login(){
 
@@ -16,10 +21,7 @@ public class ViewController {
 
     }
 
-    @GetMapping("/post/write")
-    public String write(){
-        return "write";
-    }
+
 
     @GetMapping("/post/read")
     public String read(){

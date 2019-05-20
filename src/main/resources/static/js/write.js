@@ -1,7 +1,11 @@
 (function ($) {
     $('#submitpost').on('click', function () {
         nullcheck();
-    })
+    });
+
+    $('#updatenotice').on('click', function () {
+        nullcheck();
+    });
 
     function nullcheck() {
         var title = $('#title').val();
@@ -12,10 +16,14 @@
 
         }else if (content == ''){
             alert("본문을 채워주세요.");
+
         }else {
             $('#postform').submit();
+
         }
     }
+
+
 
 
 })(jQuery);

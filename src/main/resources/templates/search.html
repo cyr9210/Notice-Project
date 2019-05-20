@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="searchForm">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/notice/search">
+        <div class="input-group" >
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="keyword">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+            <div style="margin-left: 5px; margin-top: 13px;">
+                <input type="checkbox" value="title" checked name="check">제목
+                <input type="checkbox" value="writer" name="check">글쓴이
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<script src="/js/search.js"></script>-->
+</body>
+</html>
