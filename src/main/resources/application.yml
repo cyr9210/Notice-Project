@@ -1,4 +1,11 @@
 spring:
+  profiles:
+    active: local
+
+
+# local 환경
+---
+spring:
   profiles: local
 
   jpa:
@@ -20,11 +27,7 @@ spring:
     remote:
       restart:
         enabled: false
-  http:
-    encoding:
-      charset: utf-8
-      enabled: true
-      force: true
+
 
 logging:
   level:

@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>-->
 
 </head>
 
@@ -165,6 +166,7 @@
                     <div class="card-body">
                         <a href="/notice/write" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right">글쓰기</a>
                         <div class="table-responsive">
+                            <div class="dataTables_wrapper dt-bootstrap4">
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
@@ -190,9 +192,37 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+
+                            <!--pagination-->
+                            <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info">showing</div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled"><a class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item previous"><a class="page-link">1</a></li>
+                                        <li class="paginate_button page-item next"><a class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                            <!--end paginamtion-->
+
+                        </div>
                         </div>
                     </div>
+
+
+
+<!--                    </div>-->
+
+
                 </div>
+
 
             </div>
             <!-- /.container-fluid -->

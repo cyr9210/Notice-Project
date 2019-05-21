@@ -23,22 +23,18 @@ public class Application {
                 .run(args);
     }
 
-    @Bean
-    public CharacterEncodingFilter characterEncodingFilter() {
-
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-
-        characterEncodingFilter.setEncoding("UTF-8");
-
-        characterEncodingFilter.setForceEncoding(true);
-
-        return characterEncodingFilter;
-
-    }
-
-    @Bean
-    public HttpMessageConverter<String> responseBodyConverter() {
-        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
-    }
+//    @Bean
+//    public CharacterEncodingFilter characterEncodingFilter() {
+//        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+//        characterEncodingFilter.setEncoding("UTF-8");
+//        characterEncodingFilter.setForceEncoding(true);
+//        return characterEncodingFilter;
+//
+//    }
+//
+//    @Bean
+//    public HttpMessageConverter<String> responseBodyConverter() {
+//        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+//    }
 
 }
