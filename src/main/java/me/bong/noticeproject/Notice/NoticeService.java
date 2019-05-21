@@ -2,12 +2,15 @@ package me.bong.noticeproject.Notice;
 
 import me.bong.noticeproject.Account.Account;
 import me.bong.noticeproject.Account.AccountRepository;
+import me.bong.noticeproject.Account.LoginAccount;
+import me.bong.noticeproject.Config.SessionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,9 @@ public class NoticeService {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    HttpSession session;
 
     public Page<Notice> findAll(int page){
         PageRequest pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "created"));
@@ -57,6 +63,12 @@ public class NoticeService {
     public Page<Notice> searchAll(String keyword, int page){
         PageRequest pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "created"));
         return noticeRepository.findByTitleContainsOrWriter_NameContainsAllIgnoreCase(keyword, keyword, pageable);
+    }
+
+    public Page<Notice> myNotice(int page){
+        PageRequest pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "created"));
+        LoginAccount loginUser = (LoginAccount) session.getAttribute(SessionConstants.LOGIN_USER);
+        return noticeRepository.findByWriter_email(loginUser.getEmail(), pageable);
     }
 
 }

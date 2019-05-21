@@ -31,7 +31,7 @@ public class NoticeRunner implements ApplicationRunner {
             saveNotice(allUser, i);
         }
 
-        for (int i = 6; i < 20; i++) {
+        for (int i = 6; i < 100; i++) {
             testNotice(allUser.get(0), i);
         }
 

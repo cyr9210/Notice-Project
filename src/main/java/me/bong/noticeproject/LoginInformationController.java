@@ -1,7 +1,7 @@
 package me.bong.noticeproject;
 
-import lombok.RequiredArgsConstructor;
 import me.bong.noticeproject.Config.SessionConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,10 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
 public class LoginInformationController {
-
-    private final HttpSession httpSession;
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("/me")
     public Map<String, Object> me(){
@@ -21,4 +20,5 @@ public class LoginInformationController {
         response.put("profile", httpSession.getAttribute(SessionConstants.LOGIN_USER));
         return response;
     }
+
 }

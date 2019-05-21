@@ -1,10 +1,7 @@
 (function ($) {
     // /notice/search
     $('#searchBtn').on('click', function () {
-        var keyword = $('#keyword').val();
-
-
-
-
+        $('#searchForm').submit();
+        return false;
     })
 })(jQuery)

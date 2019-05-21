@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.nio.charset.Charset;
@@ -23,6 +25,11 @@ public class Application {
                 .run(args);
     }
 
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Not found Page")
+    public static class urlNotfoundException extends RuntimeException{
+
+    }
+
 //    @Bean
 //    public CharacterEncodingFilter characterEncodingFilter() {
 //        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -36,5 +43,6 @@ public class Application {
 //    public HttpMessageConverter<String> responseBodyConverter() {
 //        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
 //    }
+
 
 }

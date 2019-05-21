@@ -25,15 +25,21 @@ public class NoticeRepositoryTest {
         assertThat(searchTitle.getTotalElements()).isEqualTo(noticeRepository.count());
 
         Page<Notice> searchWriter = noticeRepository.findByWriter_NameContainsIgnoreCase("최용락", PageRequest.of(0, 10));
-        assertThat(searchWriter.getTotalElements()).isEqualTo(15);
+        assertThat(searchWriter.getTotalElements()).isEqualTo(95);
 
         //검색창이 하나로 keyword 두개가 같음.
         Page<Notice> searchKeyword = noticeRepository.findByTitleContainsOrWriter_NameContainsAllIgnoreCase("공지", "공지", PageRequest.of(0, 10));
         assertThat(searchKeyword.getTotalElements()).isEqualTo(noticeRepository.count());
 
         Page<Notice> searchKeyword2 = noticeRepository.findByTitleContainsOrWriter_NameContainsAllIgnoreCase("최용락", "최용락",PageRequest.of(0, 10));
-        assertThat(searchKeyword2.getTotalElements()).isEqualTo(15);
+        assertThat(searchKeyword2.getTotalElements()).isEqualTo(95);
 
+    }
+
+    @Test
+    public void findbyEmail(){
+        Page<Notice> byWriter_email = noticeRepository.findByWriter_email("cyr9210@nate.com", PageRequest.of(0,10));
+        assertThat(byWriter_email.getTotalElements()).isEqualTo(95);
     }
 
 }

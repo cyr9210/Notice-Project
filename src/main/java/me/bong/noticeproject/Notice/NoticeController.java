@@ -1,11 +1,14 @@
 package me.bong.noticeproject.Notice;
 
+import me.bong.noticeproject.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Controller
@@ -15,13 +18,17 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
+
     @GetMapping("/{page}")
-    public String findall(Model model,@PathVariable("page") int page){
+    public String findall(Model model, @PathVariable("page") int page){
         Page<Notice> all = noticeService.findAll(page);
+        if(page < 0 || page >= all.getTotalPages()){
+            throw new Application.urlNotfoundException();
+        }
+
         model.addAttribute("list", all);
 
         long countall = noticeService.countAll();
-        model.addAttribute("size", countall);
 
         return "main";
     }
@@ -69,40 +76,54 @@ public class NoticeController {
         return "redirect:/notice/read/" + notice.getId();
     }
 
-    @GetMapping("/search")
-    public String search(Search search, Model model){
+    @GetMapping("/search/{page}")
+    public String search(Search search, Model model, @PathVariable int page, HttpServletResponse response){
+        Cookie keyword = new Cookie("keyword", search.getKeyword());
+
+        keyword.setMaxAge(60*60); //쿠키 유지 시간
+        keyword.setPath("/notice/search/"); // 쿠키접근허용경로
+
+        System.out.println("쿠키저장" + keyword.getValue());
+
+        response.addCookie(keyword);
 
         if(search.getCheck().equals("title")){
-            searchTitle(search.getKeyword(), model, search.getPage());
-            return "main";
+            return "redirect:title/"+page;
         }else if(search.getCheck().equals("writer")){
-            searchWriter(search.getKeyword(), model, search.getPage());
-            return "main";
+            return "redirect:writer/"+page;
         }else if (search.getCheck().equals("title,writer")){
-            searchAll(search.getKeyword(), model, search.getPage());
-            return "main";
+            return "redirect:all/"+page;
         }
         return "redirect:/notice/0";
     }
 
-
-    public void searchTitle(String keyword, Model model, int page){
+    @GetMapping("/search/title/{page}")
+    public String searchTitle(@CookieValue(defaultValue = "", value = "keyword") String keyword, Model model, @PathVariable int page){
+        System.out.println("쿠키사용" + keyword);
         Page<Notice> search = noticeService.searchTitle(keyword, page);
         model.addAttribute("list", search);
-        model.addAttribute("size", search.getTotalElements());
+        return "main";
     }
 
-    public void searchWriter(String keyword, Model model, int page){
+    @GetMapping("/search/writer/{page}")
+    public String searchWriter(@CookieValue(defaultValue = "", value = "keyword") String keyword, Model model, @PathVariable int page){
         Page<Notice> search = noticeService.searchWriter(keyword, page);
         model.addAttribute("list", search);
-        model.addAttribute("size", search.getTotalElements());
+        return "main";
     }
 
-    public void searchAll(String keyword, Model model, int page){
+    @GetMapping("/search/all/{page}")
+    public String searchAll(@CookieValue(defaultValue = "", value = "keyword") String keyword, Model model, @PathVariable  int page){
         Page<Notice> search = noticeService.searchAll(keyword, page);
         model.addAttribute("list", search);
-        model.addAttribute("size", search.getTotalElements());
+        return "main";
     }
 
+    @GetMapping("/myNotice/{page}")
+    public String myNotice(@PathVariable int page, Model model){
+        Page<Notice> myNotice = noticeService.myNotice(page);
+        model.addAttribute("list", myNotice);
+        return "main";
+    }
 
 }

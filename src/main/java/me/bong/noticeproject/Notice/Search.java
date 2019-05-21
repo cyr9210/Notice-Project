@@ -9,5 +9,4 @@ public class Search {
 
     private String check;
 
-    private int page = 0;
 }

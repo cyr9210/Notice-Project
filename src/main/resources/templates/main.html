@@ -128,14 +128,14 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/notice/myNotice/0">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    나의활동
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    로그아웃
                                 </a>
                             </div>
                         </li>
@@ -180,13 +180,13 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody th:with="offset=${list.getPageable().getOffset()}">
                                 <tr th:each="notice, index : ${list}">
-                                    <td th:text="${size - index.index}">1</td>
-                                    <td><a th:text="${notice.getTitle()}" th:href="@{'/notice/read/' + ${notice.getId()}}">New York</a></td>
-                                    <td th:text="${notice.getWriter().getName()}">Customer Support</td>
-                                    <td th:text="${notice.getCreated()}">2011/01/25</td>
-                                    <td th:text="${notice.getModified()}">2011/01/25</td>
+                                        <td th:text="${list.getTotalElements() - (index.index + list.getPageable().getOffset())}">1</td>
+                                        <td><a th:text="${notice.getTitle()}" th:href="@{'/notice/read/' + ${notice.getId()}}" class="readNoticeBtn">New York</a></td>
+                                        <td th:text="${notice.getWriter().getName()}">Customer Support</td>
+                                        <td th:text="${notice.getCreated()}">2011/01/25</td>
+                                        <td th:text="${notice.getModified()}">2011/01/25</td>
                                     <!--                                    <td th:text="">27</td>-->
                                     <!--                                    <td th:text="">$112,000</td>-->
                                 </tr>
@@ -197,15 +197,26 @@
                             <!--pagination-->
                             <div class="row">
                             <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info">showing</div>
+                                <div class="dataTables_info" th:text="${list.getTotalElements()}+ '개의 공지사항이 있습니다.'"></div>
                             </div>
 
                             <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"><a class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item previous"><a class="page-link">1</a></li>
-                                        <li class="paginate_button page-item next"><a class="page-link">Next</a></li>
+                                <div class="dataTables_paginate paging_simple_numbers" th:with="forpaging=${list.getNumber()/5}">
+                                    <ul class="pagination" th:with="first = ${forpaging * 5}, last = ${forpaging * 5 + 4}">
+                                        <th:block th:unless="${first == 0}">
+                                            <li class="paginate_button page-item previous"><a th:href="@{${first - 1}}" class="page-link">Previous</a></li>
+                                        </th:block>
+                                        <th:block th:each="i : ${#numbers.sequence(first, last)}">
+                                            <li class="paginate_button page-item" th:unless="${i >= list.getTotalPages() || i == list.getNumber()}">
+                                                <a class="page-link" th:text="${i + 1}" th:href="@{${i}}">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item active" th:if="${i == list.getNumber() && i < list.getTotalPages()}">
+                                                <a class="page-link" th:text="${i + 1}" th:href="@{${i}}">1</a>
+                                            </li>
+                                        </th:block>
+                                        <th:block th:if="${last+1 < list.getTotalPages()}">
+                                            <li class="paginate_button page-item next"><a th:href="@{${last + 1}}" class="page-link">Next</a></li>
+                                        </th:block>
                                     </ul>
                                 </div>
                             </div>
@@ -270,6 +281,8 @@
     </div>
 </div>
 
+
+
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -286,7 +299,8 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 
 </html>

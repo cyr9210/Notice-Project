@@ -128,14 +128,14 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/notice/myNotice/0">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    나의활동
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    로그아웃
                                 </a>
                             </div>
                         </li>
@@ -194,7 +194,7 @@
                                 <a th:href="@{'/notice/update/' + ${notice.getId()}}" class="d-none d-sm-inline-block btn btn-warning shadow-sm fa-pull-right" style="margin-left: 5px;">수정</a>
                                 <a th:href="@{'/notice/delete/' + ${notice.getId()}}" class="d-none d-sm-inline-block btn btn-danger shadow-sm fa-pull-right" style="margin-left: 5px;">삭제</a>
                             </th:block>
-                            <a href="/notice/0" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right" style="margin-left: 5px;">목록</a>
+                            <a href="#" id="beforeBtn" class="d-none d-sm-inline-block btn btn-primary shadow-sm fa-pull-right" style="margin-left: 5px;">목록</a>
                         </form>
                     </div>
                 </div>
@@ -262,8 +262,10 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/datatables-demo.js"></script>
 <!--<script src="stㄴatic/js/demo/datatables-demo.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 <!--myscript-->
+<script src="/js/read.js"></script>
 
 </body>
 

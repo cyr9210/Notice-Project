@@ -16,4 +16,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     Page<Notice> findByWriter_NameContainsIgnoreCase(String keyword, Pageable pageable);
 
     Page<Notice> findByTitleContainsOrWriter_NameContainsAllIgnoreCase(String keyword, String same, Pageable pageable);
+
+    Page<Notice> findByWriter_email(String email, Pageable pageable);
 }
