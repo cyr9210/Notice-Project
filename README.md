@@ -26,7 +26,7 @@
             - test제외하고 실행 target아래 jar파일 하나를 생성한다.
     
     - 실행
-        - java -jar (target아래 생성된 .jar파일)
+        - java -jar (target아래 생성된 .jar파일명)
         
 
 ### 기능 구현
@@ -41,7 +41,7 @@
 - 목록은 페이징 기능이 있다.
 - 제목/글쓴이로 검색이 가능하다.
 
-### 구현
+### 구현결과
 ![noticeP](image/notice-project2.png)
 ![noticeP](image/notice-project3.png)
 ![noticeP](image/notice-project4.png)
