@@ -21,9 +21,9 @@
         - 메이블 플러그인을 통해 jar파일 생성 
             - clone 또는 압축푼 폴더의 위치를 찾아 아래 명령어 입력  
             - mvn clean
-                - target아래 파일들 삭제
+                - target폴더 아래 파일들 삭제
             - mvn package -DskipTests
-                - test제외하고 실행 target아래 jar파일 하나를 생성한다.
+                - test제외하고 실행 target폴더 아래 jar파일 하나를 생성한다.
 
         - 실행
             - java -jar (target아래 생성된 .jar파일명)
